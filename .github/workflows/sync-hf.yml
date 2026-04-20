@@ -1,18 +1,20 @@
 name: Sync della repo sullo Space HF
+
 env:
- HF_USERNAME: Balce90
- HF_SPACE: Stremio
+  HF_USERNAME: Balce90
+  HF_SPACE: Stremio
 
 on:
- schedule:
- - cron: "0 3 * * *"
- workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"  # Parte ogni giorno alle 3 di notte
+  workflow_dispatch:      # Ti permette di farlo partire a mano quando vuoi
+
 jobs:
- sync:
- runs-on: ubuntu-latest
- steps:
- - name: Request Factory Rebuild
- run: |
- curl -X POST \
- -H "Authorization: Bearer ${{ secrets.HF_TOKEN }}" \
- "https://huggingface.co/api/spaces/Balce90/Stremio/restart?factory=true”
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request Factory Rebuild
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.HF_TOKEN }}" \
+          "https://huggingface.co/api/spaces/Balce90/Stremio/restart?factory=true"
